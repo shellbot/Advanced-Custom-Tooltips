@@ -58,6 +58,15 @@ class Advanced_Custom_Tooltips {
 	protected $version;
 
 	/**
+	 * Default plugin settings.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      array    $defaults   The default settings array.
+	 */
+	protected $defaults;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -70,6 +79,7 @@ class Advanced_Custom_Tooltips {
 
 		$this->plugin_name = 'Advanced Custom Tooltips';
 		$this->version = '1.0.0';
+		$this->defaults = $this->set_defaults();
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -152,7 +162,7 @@ class Advanced_Custom_Tooltips {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Advanced_Custom_Tooltips_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Advanced_Custom_Tooltips_Admin( $this->get_plugin_name(), $this->get_version(), $this->get_defaults() );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'add_tooltip_cpt' );
     $this->loader->add_action( 'init', $plugin_admin, 'register_tooltip_settings_page' );
@@ -174,7 +184,7 @@ class Advanced_Custom_Tooltips {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Advanced_Custom_Tooltips_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Advanced_Custom_Tooltips_Public( $this->get_plugin_name(), $this->get_version(), $this->get_defaults() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -223,6 +233,36 @@ class Advanced_Custom_Tooltips {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Set the default plugin settings.
+	 *
+	 * @since     1.0.0
+	 * @return    array    The default plugin settings.
+	 */
+	public function set_defaults() {
+
+		return array(
+				'auto_linking'	=> 'first',
+				'trigger_style'	=> 'underline-dotted',
+				'trigger_color'	=> '#000000',
+				'tooltip_background_color'	=> '#4c4c4c',
+				'tooltip_text_color'	=> '#ffffff',
+				'tooltip_border_color'	=> '#000000',
+				'tooltip_corner_style'	=> 'square',
+		);
+
+	}
+
+	/**
+	 * Get the default plugin settings.
+	 *
+	 * @since     1.0.0
+	 * @return    array    The default plugin settings.
+	 */
+	public function get_defaults() {
+		return $this->defaults;
 	}
 
 }

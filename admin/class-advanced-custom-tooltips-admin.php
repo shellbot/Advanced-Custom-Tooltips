@@ -38,16 +38,29 @@ class Advanced_Custom_Tooltips_Admin {
 	private $version;
 
 	/**
+	 * Default plugin settings.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $defaults   The default settings array.
+	 */
+	private $defaults;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
+	 * @param      array     $defaults    The default plugin settings.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $version, $defaults ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->defaults = $defaults;
+
+		add_shortcode( 'act_tooltip', array( $this, 'tooltip_shortcode' ) );
 
 	}
 
@@ -114,9 +127,56 @@ class Advanced_Custom_Tooltips_Admin {
 	}
 
 	/**
+	 * Tooltip shortcode.
+	 *
+	 * @since    1.0.0
+	 */
+	 public function tooltip_shortcode( $atts, $code_content ) {
+
+		 if( !isset( $atts['id'] ) && !isset( $atts['content'] ) ) { //No tooltip ID or content provided, do nothing
+		 	return;
+		 }
+
+		 $defaults = extract( shortcode_atts(array(
+			 'id' => '',
+			 'title' => 'Advanced Custom Tooltip',
+			 'content' => '',
+		 ), $atts, 'act-tooltip-shortcode-atts' ) );
+
+		 if( !isset( $atts['id'] ) ) { //Plain text tooltip
+			 if( $code_content ) {
+				 $tooltip_text = $code_content;
+			 } else {
+				 $tooltip_text = $title;
+			 }
+			 $tooltip_content = $content;
+			 return '<span class="tooltip" title="' . $tooltip_content . '">' . $tooltip_text . '</span>';
+		 }
+
+		 //ID provided, get this tooltip from db
+		 query_posts( 'post_type=act_tooltip&p=' . $id );
+
+		 if ( have_posts()) : while (have_posts()) : the_post();
+
+			 if( $code_content ) {
+
+				 $tooltip_text = $code_content;
+			 } else {
+				 $tooltip_text = get_the_title();
+			 }
+
+			 $tooltip_content = htmlentities( get_the_content() );
+
+		 endwhile; endif; wp_reset_query();
+
+		 return '<span class="tooltip" title="' . do_shortcode( $tooltip_content ) . '">' . $tooltip_text . '</span>';
+
+	 }
+
+	/**
 	 * Registers a new global tooltip settings page.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function register_tooltip_settings_page() {
 
@@ -160,7 +220,7 @@ class Advanced_Custom_Tooltips_Admin {
 										'label'				=> __( 'Auto linking', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-general',
 										'type'				=> 'radio',
-										'std'					=> 'first',
+										'std'					=> $this->defaults['auto_linking'],
 										'choices'			=> $this->get_autolink_options(),
 									),
 									array(
@@ -168,6 +228,7 @@ class Advanced_Custom_Tooltips_Admin {
 										'label'				=> __( 'Trigger text style', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-styles',
 										'type'				=> 'select',
+										'std'					=> $this->defaults['trigger_style'],
 										'choices'			=> array(
 												array(
 													'label'	=> __( 'Underline', 'advanced-custom-tooltips' ),
@@ -192,34 +253,35 @@ class Advanced_Custom_Tooltips_Admin {
 										'label'				=> 'Color for trigger style',
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
+										'std'					=> $this->defaults['trigger_color'],
 									),
 									array(
 										'id'					=> 'tooltip_background_color',
 										'label'				=> 'Color for tooltip background',
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
-										'std'					=> '#4c4c4c',
+										'std'					=> $this->defaults['tooltip_background_color'],
 									),
 									array(
 										'id'					=> 'tooltip_text_color',
 										'label'				=> 'Color for tooltip text',
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
-										'std'					=> '#ffffff',
+										'std'					=> $this->defaults['tooltip_text_color'],
 									),
 									array(
 										'id'					=> 'tooltip_border_color',
 										'label'				=> 'Color for tooltip border',
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
-										'std'					=> '#000000',
+										'std'					=> $this->defaults['tooltip_border_color'],
 									),
 									array(
 										'id'					=> 'tooltip_corner_style',
 										'label'				=> 'Tooltip corner style',
 										'section'			=> 'wpact-styles',
 										'type'				=> 'radio',
-										'std'					=> 'square',
+										'std'					=> $this->defaults['tooltip_corner_style'],
 										'choices'			=> array(
 											array(
 												'label'		=> 'Rounded',

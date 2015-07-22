@@ -41,6 +41,15 @@ class Advanced_Custom_Tooltips_Public {
 	private $version;
 
 	/**
+	 * Default plugin settings.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $defaults   The default settings array.
+	 */
+	private $defaults;
+
+	/**
 	 * Global plugin settings.
 	 *
 	 * @since    1.0.0
@@ -55,17 +64,14 @@ class Advanced_Custom_Tooltips_Public {
 	 * @since    1.0.0
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
+	 * @param      array     $defaults    The default plugin settings.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $version, $defaults ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->global_settings = get_option( 'wpact_global_settings' );
-
-		//TODO Improve this
-		if( !isset( $this->global_settings['auto_linking'] ) ) {
-			$this->global_settings['auto_linking']	= 'first';
-		}
+		$this->defaults = $defaults;
+		$this->global_settings = array_merge( $defaults, get_option( 'wpact_global_settings' ) );
 
 	}
 
@@ -135,11 +141,11 @@ class Advanced_Custom_Tooltips_Public {
 	 */
 	function get_tooltips() {
 
-			$query = array (
-					'post_type' => 'act_tooltip',
-			);
+		$query = array (
+				'post_type' => 'act_tooltip',
+		);
 
-			return get_posts( $query );
+		return get_posts( $query );
 
 	}
 
@@ -150,54 +156,59 @@ class Advanced_Custom_Tooltips_Public {
 	 */
 	function print_css() {
 	?>
-			<style type="text/css">
-					/* Tooltip trigger styles */
-					span.tooltipstered {
-							<?php
-							switch( $this->global_settings['trigger_style'] ) {
+		<style type="text/css">
+			/* Tooltip trigger styles */
+			span.tooltipstered {
+				<?php
+				switch( $this->global_settings['trigger_style'] ) {
 
-									case 'underline':
-											?>
-											border-bottom: 1px solid;
-											border-color: <?php echo $this->global_settings['trigger_color']; ?>;
-											text-decoration: none;
-											<?php
-									break;
+					case 'underline':
+						?>
+						border-bottom: 1px solid;
+						border-color: <?php echo $this->global_settings['trigger_color']; ?>;
+						text-decoration: none;
+						<?php
+					break;
 
-									case 'underline-dotted':
-											?>
-											border-bottom: 1px dotted;
-											border-color: <?php echo $this->global_settings['trigger_color']; ?>;
-											text-decoration: none;
-											<?php
-									break;
+					case 'underline-dotted':
+						?>
+						border-bottom: 1px dotted;
+						border-color: <?php echo $this->global_settings['trigger_color']; ?>;
+						text-decoration: none;
+						<?php
+					break;
 
-									case 'highlight':
-											?>
-											background-color: <?php echo $this->global_settings['trigger_color']; ?>;
-											text-decoration: none;
-											<?php
-									break;
+					case 'highlight':
+						?>
+						background-color: <?php echo $this->global_settings['trigger_color']; ?>;
+						text-decoration: none;
+						<?php
+					break;
 
-							}
-							?>
-					}
+				}
+				?>
+			}
 
-					/* Tooltip styles */
-					.tooltipster-default {
-					<?php
-							if( $this->global_settings['tooltip_corners'] == 'square' ) {
-							?>
-							border-radius: 0px !important;
-					<?php } else { ?>
-							border-radius: 10px !important;
-					<?php } ?>
+			/* Tooltip styles */
+			.tooltipster-default {
+				<?php
+				if( $this->global_settings['tooltip_corner_style'] == 'square' ) {
+				?>
+					border-radius: 0px !important;
+				<?php } else { ?>
+					border-radius: 10px !important;
+				<?php } ?>
 
-							border-color: <?php echo $this->global_settings['tooltip_border']; ?> !important;
-							background: <?php echo $this->global_settings['tooltip_bg']; ?> !important;
-							color: <?php echo $this->global_settings['tooltip_color']; ?> !important;
-					}
-			</style>
+				border-color: <?php echo $this->global_settings['tooltip_border_color']; ?> !important;
+				background: <?php echo $this->global_settings['tooltip_background_color']; ?> !important;
+				color: <?php echo $this->global_settings['tooltip_text_color']; ?> !important;
+			}
+
+			.tooltipster-default a {
+				color: <?php echo $this->global_settings['tooltip_text_color']; ?> !important;
+				text-decoration: underline;
+			}
+		</style>
 	<?php
 	}
 
@@ -208,13 +219,14 @@ class Advanced_Custom_Tooltips_Public {
 	 */
 	function print_tooltip_js() {
 	?>
-			<script type="text/javascript">
-					jQuery(document).ready(function() {
-							jQuery('.tooltip').tooltipster({
-									contentAsHTML: true
-							});
-					});
-			</script>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery('.tooltip').tooltipster({
+					contentAsHTML: true,
+					interactive: true
+				});
+			});
+		</script>
 	<?php
 	}
 
