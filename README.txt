@@ -42,7 +42,7 @@ To insert tooltips manually, Advanced Custom Tooltips provides a useful shortcod
 
 Display a previously created tooltip:
 
-`[act_tooltip id="XX"]`
+`[act_tooltip id="XX"/]`
 
 Display a one-off custom textual tooltip:
 
