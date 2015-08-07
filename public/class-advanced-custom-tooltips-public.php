@@ -116,14 +116,14 @@ class Advanced_Custom_Tooltips_Public {
 		switch( $this->global_settings['auto_linking'] ) {
 			case 'all':
 				foreach( $tooltips as $tooltip ) {
-					$content = str_replace( $tooltip->post_title, '<span class="tooltip" title="' . htmlentities( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $content );
+					$content = str_replace( $tooltip->post_title, '<span class="act-tooltip" title="' . htmlentities( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $content );
 				}
 			break;
 			case 'first':
 				foreach( $tooltips as $tooltip ) {
 					$pos = strpos( $content, $tooltip->post_title );
 					if ($pos !== false) {
-						$content = substr_replace( $content, '<span class="tooltip" title="' . htmlentities( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $pos, strlen( $tooltip->post_title ) );
+						$content = substr_replace( $content, '<span class="act-tooltip" title="' . htmlentities( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $pos, strlen( $tooltip->post_title ) );
 					}
 				}
 			break;
@@ -143,6 +143,7 @@ class Advanced_Custom_Tooltips_Public {
 
 		$query = array (
 				'post_type' => 'act_tooltip',
+				'posts_per_page' => -1,
 		);
 
 		return get_posts( $query );
@@ -221,7 +222,7 @@ class Advanced_Custom_Tooltips_Public {
 	?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
-				jQuery('.tooltip').tooltipster({
+				jQuery('.act-tooltip').tooltipster({
 					contentAsHTML: true,
 					interactive: true
 				});

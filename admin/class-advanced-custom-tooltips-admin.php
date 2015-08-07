@@ -93,20 +93,20 @@ class Advanced_Custom_Tooltips_Admin {
 	 */
 	function add_tooltip_cpt() {
 		$labels = array(
-		'name'               => _x( 'Tooltips', 'post type general name', 'sb-act' ),
-		'singular_name'      => _x( 'Tooltip', 'post type singular name', 'sb-act' ),
-		'menu_name'          => _x( 'Tooltips', 'admin menu', 'sb-act' ),
-		'name_admin_bar'     => _x( 'Tooltips', 'add new on admin bar', 'sb-act' ),
-		'add_new'            => _x( 'Add New', 'tooltip', 'sb-act' ),
-		'add_new_item'       => __( 'Add New Tooltip', 'sb-act' ),
-		'new_item'           => __( 'New Tooltip', 'sb-act' ),
-		'edit_item'          => __( 'Edit Tooltip', 'sb-act' ),
-		'view_item'          => __( 'View Tooltip', 'sb-act' ),
-		'all_items'          => __( 'All Tooltips', 'sb-act' ),
-		'search_items'       => __( 'Search Tooltips', 'sb-act' ),
-		'parent_item_colon'  => __( 'Parent Tooltips:', 'sb-act' ),
-		'not_found'          => __( 'No tooltips found.', 'sb-act' ),
-		'not_found_in_trash' => __( 'No tooltips found in Trash.', 'sb-act' )
+		'name'               => _x( 'Tooltips', 'post type general name', 'advanced-custom-tooltips' ),
+		'singular_name'      => _x( 'Tooltip', 'post type singular name', 'advanced-custom-tooltips' ),
+		'menu_name'          => _x( 'Tooltips', 'admin menu', 'advanced-custom-tooltips' ),
+		'name_admin_bar'     => _x( 'Tooltips', 'add new on admin bar', 'advanced-custom-tooltips' ),
+		'add_new'            => _x( 'Add New', 'tooltip', 'advanced-custom-tooltips' ),
+		'add_new_item'       => __( 'Add New Tooltip', 'advanced-custom-tooltips' ),
+		'new_item'           => __( 'New Tooltip', 'advanced-custom-tooltips' ),
+		'edit_item'          => __( 'Edit Tooltip', 'advanced-custom-tooltips' ),
+		'view_item'          => __( 'View Tooltip', 'advanced-custom-tooltips' ),
+		'all_items'          => __( 'All Tooltips', 'advanced-custom-tooltips' ),
+		'search_items'       => __( 'Search Tooltips', 'advanced-custom-tooltips' ),
+		'parent_item_colon'  => __( 'Parent Tooltips:', 'advanced-custom-tooltips' ),
+		'not_found'          => __( 'No tooltips found.', 'advanced-custom-tooltips' ),
+		'not_found_in_trash' => __( 'No tooltips found in Trash.', 'advanced-custom-tooltips' )
 		);
 
 		$args = array(
@@ -150,7 +150,7 @@ class Advanced_Custom_Tooltips_Admin {
 				 $tooltip_text = $title;
 			 }
 			 $tooltip_content = $content;
-			 return '<span class="tooltip" title="' . $tooltip_content . '">' . $tooltip_text . '</span>';
+			 return '<span class="act-tooltip" title="' . $tooltip_content . '">' . $tooltip_text . '</span>';
 		 }
 
 		 //ID provided, get this tooltip from db
@@ -169,7 +169,7 @@ class Advanced_Custom_Tooltips_Admin {
 
 		 endwhile; endif; wp_reset_query();
 
-		 return '<span class="tooltip" title="' . do_shortcode( $tooltip_content ) . '">' . $tooltip_text . '</span>';
+		 return '<span class="act-tooltip" title="' . do_shortcode( $tooltip_content ) . '">' . $tooltip_text . '</span>';
 
 	 }
 
@@ -192,26 +192,26 @@ class Advanced_Custom_Tooltips_Admin {
               array(
 	              'id'              => 'wpact-tooltip-settings',
 	              'parent_slug'     => 'edit.php?post_type=act_tooltip',
-	              'page_title'      => __( 'Advanced Custom Tooltips - Global Settings', 'wp-craft-blogger' ),
-	              'menu_title'      => __( 'Settings', 'wp-craft-blogger' ),
+	              'page_title'      => __( 'Advanced Custom Tooltips - Global Settings', 'advanced-custom-tooltips' ),
+	              'menu_title'      => __( 'Settings', 'advanced-custom-tooltips' ),
 	              'capability'      => 'edit_theme_options',
 	              'menu_slug'       => 'wpact-settings',
 	              'icon_url'        => null,
 	              'position'        => null,
-	              'updated_message' => __( 'Settings updated', 'wp-craft-blogger' ),
-	              'reset_message'   => __( 'Settings reset', 'wp-craft-blogger' ),
-	              'button_text'     => __( 'Save changes', 'wp-craft-blogger' ),
+	              'updated_message' => __( 'Settings updated', 'advanced-custom-tooltips' ),
+	              'reset_message'   => __( 'Settings reset', 'advanced-custom-tooltips' ),
+	              'button_text'     => __( 'Save changes', 'advanced-custom-tooltips' ),
 	              'show_buttons'    => true,
 	              'screen_icon'     => 'options-general',
 	              'contextual_help' => null,
 	              'sections'        => array(
 	                array(
 	                  'id'          => 'wpact-general',
-	                  'title'       => __( 'General', 'wp-craft-blogger' ),
+	                  'title'       => __( 'General', 'advanced-custom-tooltips' ),
 	                ),
 									array(
 	                  'id'          => 'wpact-styles',
-	                  'title'       => __( 'Styling', 'wp-craft-blogger' ),
+	                  'title'       => __( 'Styling', 'advanced-custom-tooltips' ),
 	                ),
 	              ),
                 'settings'        => array(
@@ -250,35 +250,35 @@ class Advanced_Custom_Tooltips_Admin {
 									),
 									array(
 										'id'					=> 'trigger_color',
-										'label'				=> 'Color for trigger style',
+										'label'				=> __( 'Color for trigger style', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
 										'std'					=> $this->defaults['trigger_color'],
 									),
 									array(
 										'id'					=> 'tooltip_background_color',
-										'label'				=> 'Color for tooltip background',
+										'label'				=> __( 'Color for tooltip background', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
 										'std'					=> $this->defaults['tooltip_background_color'],
 									),
 									array(
 										'id'					=> 'tooltip_text_color',
-										'label'				=> 'Color for tooltip text',
+										'label'				=> __( 'Color for tooltip text', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
 										'std'					=> $this->defaults['tooltip_text_color'],
 									),
 									array(
 										'id'					=> 'tooltip_border_color',
-										'label'				=> 'Color for tooltip border',
+										'label'				=> __( 'Color for tooltip border', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-styles',
 										'type'				=> 'colorpicker',
 										'std'					=> $this->defaults['tooltip_border_color'],
 									),
 									array(
 										'id'					=> 'tooltip_corner_style',
-										'label'				=> 'Tooltip corner style',
+										'label'				=> __( 'Tooltip corner style', 'advanced-custom-tooltips' ),
 										'section'			=> 'wpact-styles',
 										'type'				=> 'radio',
 										'std'					=> $this->defaults['tooltip_corner_style'],
