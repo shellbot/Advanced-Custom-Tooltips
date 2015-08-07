@@ -71,7 +71,7 @@ class Advanced_Custom_Tooltips_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		$this->defaults = $defaults;
-		$this->global_settings = array_merge( $defaults, get_option( 'wpact_global_settings' ) );
+		$this->global_settings = ( get_option( 'wpact_global_settings' ) ? array_merge( $defaults, get_option( 'wpact_global_settings' ) ) : $defaults );
 
 	}
 

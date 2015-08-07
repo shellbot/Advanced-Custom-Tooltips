@@ -78,7 +78,7 @@ class Advanced_Custom_Tooltips {
 	public function __construct() {
 
 		$this->plugin_name = 'Advanced Custom Tooltips';
-		$this->version = '1.0.0';
+		$this->version = '1.0.1';
 		$this->defaults = $this->set_defaults();
 
 		$this->load_dependencies();

@@ -69,5 +69,12 @@ The number shown where you see XX in the above example is your ID.
 
 == Changelog ==
 
+= 1.0.1 =
+* Bugfix: Activation warning, tooltips limit & Bootstrap class conflict.
 = 1.0.0 =
 * First release
+
+== Upgrade Notice ==
+
+= 1.0.1 =
+* Bugfix: Activation warning, tooltips limit & Bootstrap class conflict.
