@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: tooltips, tooltip, hover, hint, bubble, textbubble, shortcode,
 Requires at least: 3.0.1
-Tested up to: 4.2.2
+Tested up to: 4.3
 Donate link: http://patreon.com/shellbot
 Stable tag: trunk
 License: GPLv2 or later
