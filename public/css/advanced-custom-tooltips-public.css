@@ -21,3 +21,7 @@
 .tooltipster-default ol {
     list-style-type: decimal;
 }
+
+.tooltipster-default *:last-child {
+    margin-bottom: 0;
+}

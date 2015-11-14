@@ -200,8 +200,8 @@ class Advanced_Custom_Tooltips_Public {
 	function get_tooltips() {
 
 		$query = array (
-				'post_type' => 'act_tooltip',
-				'posts_per_page' => -1,
+                        'post_type' => 'act_tooltip',
+                        'posts_per_page' => -1,
 		);
 
 		return get_posts( $query );

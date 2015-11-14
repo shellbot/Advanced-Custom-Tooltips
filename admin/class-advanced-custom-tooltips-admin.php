@@ -131,127 +131,127 @@ class Advanced_Custom_Tooltips_Admin {
 	 */
 	public function register_tooltip_settings_page() {
 
-	  // Only execute in admin & if OT is installed
-  	if ( is_admin() && function_exists( 'ot_register_settings' ) ) {
+                // Only execute in admin & if OT is installed
+                if ( is_admin() && function_exists( 'ot_register_settings' ) ) {
 
-	    // Register the page
-    	ot_register_settings(
-        array(
-      		array(
-            'id'              => 'wpact_global_settings',
-            'pages'           => array(
-              array(
-	              'id'              => 'wpact-tooltip-settings',
-	              'parent_slug'     => 'edit.php?post_type=act_tooltip',
-	              'page_title'      => __( 'Advanced Custom Tooltips - Global Settings', 'advanced-custom-tooltips' ),
-	              'menu_title'      => __( 'Settings', 'advanced-custom-tooltips' ),
-	              'capability'      => 'edit_theme_options',
-	              'menu_slug'       => 'wpact-settings',
-	              'icon_url'        => null,
-	              'position'        => null,
-	              'updated_message' => __( 'Settings updated', 'advanced-custom-tooltips' ),
-	              'reset_message'   => __( 'Settings reset', 'advanced-custom-tooltips' ),
-	              'button_text'     => __( 'Save changes', 'advanced-custom-tooltips' ),
-	              'show_buttons'    => true,
-	              'screen_icon'     => 'options-general',
-	              'contextual_help' => null,
-	              'sections'        => array(
-	                array(
-	                  'id'          => 'wpact-general',
-	                  'title'       => __( 'General', 'advanced-custom-tooltips' ),
-	                ),
-									array(
-	                  'id'          => 'wpact-styles',
-	                  'title'       => __( 'Styling', 'advanced-custom-tooltips' ),
-	                ),
-	              ),
-                'settings'        => array(
-									array(
-										'id'					=> 'auto_linking',
-										'label'				=> __( 'Auto linking', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-general',
-										'type'				=> 'radio',
-										'std'					=> $this->defaults['auto_linking'],
-										'choices'			=> $this->get_autolink_options(),
-									),
-									array(
-										'id'					=> 'trigger_style',
-										'label'				=> __( 'Trigger text style', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-styles',
-										'type'				=> 'select',
-										'std'					=> $this->defaults['trigger_style'],
-										'choices'			=> array(
-												array(
-													'label'	=> __( 'Underline', 'advanced-custom-tooltips' ),
-													'value' => 'underline',
-												),
-												array(
-													'label'	=> __( 'Dotted underline', 'advanced-custom-tooltips' ),
-													'value' => 'underline-dotted',
-												),
-												array(
-													'label'	=> __( 'Highlight', 'advanced-custom-tooltips' ),
-													'value' => 'highlight',
-												),
-												array(
-													'label'	=> __( 'None', 'advanced-custom-tooltips' ),
-													'value' => 'none',
-												),
-										),
-									),
-									array(
-										'id'					=> 'trigger_color',
-										'label'				=> __( 'Color for trigger style', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-styles',
-										'type'				=> 'colorpicker',
-										'std'					=> $this->defaults['trigger_color'],
-									),
-									array(
-										'id'					=> 'tooltip_background_color',
-										'label'				=> __( 'Color for tooltip background', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-styles',
-										'type'				=> 'colorpicker',
-										'std'					=> $this->defaults['tooltip_background_color'],
-									),
-									array(
-										'id'					=> 'tooltip_text_color',
-										'label'				=> __( 'Color for tooltip text', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-styles',
-										'type'				=> 'colorpicker',
-										'std'					=> $this->defaults['tooltip_text_color'],
-									),
-									array(
-										'id'					=> 'tooltip_border_color',
-										'label'				=> __( 'Color for tooltip border', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-styles',
-										'type'				=> 'colorpicker',
-										'std'					=> $this->defaults['tooltip_border_color'],
-									),
-									array(
-										'id'					=> 'tooltip_corner_style',
-										'label'				=> __( 'Tooltip corner style', 'advanced-custom-tooltips' ),
-										'section'			=> 'wpact-styles',
-										'type'				=> 'radio',
-										'std'					=> $this->defaults['tooltip_corner_style'],
-										'choices'			=> array(
-											array(
-												'label'		=> 'Rounded',
-												'value'		=> 'rounded',
-											),
-											array(
-												'label'		=> 'Square',
-												'value'		=> 'square',
-											),
-										),
-									),
-								),
-	            )
-	          )
-	        )
-		    )
-			);
+                // Register the page
+                ot_register_settings(
+                        array(
+                                array(
+                                        'id'              => 'wpact_global_settings',
+                                        'pages'           => array(
+                                                array(
+                                                        'id'              => 'wpact-tooltip-settings',
+                                                        'parent_slug'     => 'edit.php?post_type=act_tooltip',
+                                                        'page_title'      => __( 'Advanced Custom Tooltips - Global Settings', 'advanced-custom-tooltips' ),
+                                                        'menu_title'      => __( 'Settings', 'advanced-custom-tooltips' ),
+                                                        'capability'      => 'edit_theme_options',
+                                                        'menu_slug'       => 'wpact-settings',
+                                                        'icon_url'        => null,
+                                                        'position'        => null,
+                                                        'updated_message' => __( 'Settings updated', 'advanced-custom-tooltips' ),
+                                                        'reset_message'   => __( 'Settings reset', 'advanced-custom-tooltips' ),
+                                                        'button_text'     => __( 'Save changes', 'advanced-custom-tooltips' ),
+                                                        'show_buttons'    => true,
+                                                        'screen_icon'     => 'options-general',
+                                                        'contextual_help' => null,
+                                                        'sections'        => array(
+                                                                array(
+                                                                        'id'          => 'wpact-general',
+                                                                        'title'       => __( 'General', 'advanced-custom-tooltips' ),
+                                                                ),
+                                                                array(
+                                                                        'id'          => 'wpact-styles',
+                                                                        'title'       => __( 'Styling', 'advanced-custom-tooltips' ),
+                                                                ),
+                                                        ),
+                                                        'settings'        => array(
+                                                                array(
+                                                                        'id'			=> 'auto_linking',
+                                                                        'label'			=> __( 'Auto linking', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-general',
+                                                                        'type'			=> 'radio',
+                                                                        'std'			=> $this->defaults['auto_linking'],
+                                                                        'choices'		=> $this->get_autolink_options(),
+                                                                ),
+                                                                array(
+                                                                        'id'			=> 'trigger_style',
+                                                                        'label'			=> __( 'Trigger text style', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'select',
+                                                                        'std'			=> $this->defaults['trigger_style'],
+                                                                        'choices'		=> array(
+                                                                                array(
+                                                                                        'label'	=> __( 'Underline', 'advanced-custom-tooltips' ),
+                                                                                        'value' => 'underline',
+                                                                                ),
+                                                                                array(
+                                                                                        'label'	=> __( 'Dotted underline', 'advanced-custom-tooltips' ),
+                                                                                        'value' => 'underline-dotted',
+                                                                                ),
+                                                                                array(
+                                                                                        'label'	=> __( 'Highlight', 'advanced-custom-tooltips' ),
+                                                                                        'value' => 'highlight',
+                                                                                ),
+                                                                                array(
+                                                                                        'label'	=> __( 'None', 'advanced-custom-tooltips' ),
+                                                                                        'value' => 'none',
+                                                                                ),
+                                                                        ),
+                                                                ),
+                                                                array(
+                                                                        'id'			=> 'trigger_color',
+                                                                        'label'			=> __( 'Color for trigger style', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'colorpicker',
+                                                                        'std'			=> $this->defaults['trigger_color'],
+                                                                ),
+                                                                array(
+                                                                        'id'			=> 'tooltip_background_color',
+                                                                        'label'			=> __( 'Color for tooltip background', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'colorpicker',
+                                                                        'std'			=> $this->defaults['tooltip_background_color'],
+                                                                ),
+                                                                array(
+                                                                        'id'			=> 'tooltip_text_color',
+                                                                        'label'			=> __( 'Color for tooltip text', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'colorpicker',
+                                                                        'std'			=> $this->defaults['tooltip_text_color'],
+                                                                ),
+                                                                array(
+                                                                        'id'			=> 'tooltip_border_color',
+                                                                        'label'			=> __( 'Color for tooltip border', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'colorpicker',
+                                                                        'std'			=> $this->defaults['tooltip_border_color'],
+                                                                ),
+                                                                array(
+                                                                        'id'			=> 'tooltip_corner_style',
+                                                                        'label'			=> __( 'Tooltip corner style', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'radio',
+                                                                        'std'			=> $this->defaults['tooltip_corner_style'],
+                                                                        'choices'		=> array(
+                                                                                array(
+                                                                                        'label'	=> 'Rounded',
+                                                                                        'value'	=> 'rounded',
+                                                                                ),
+                                                                                array(
+                                                                                        'label'	=> 'Square',
+                                                                                        'value'	=> 'square',
+                                                                                ),
+                                                                        ),
+                                                                ),
+                                                        ),
+                                                )
+                                        )
+                                )
+                        )
+                );
 
-	  }
+            }
 
 	}
 
@@ -328,7 +328,7 @@ class Advanced_Custom_Tooltips_Admin {
 	function include_optiontree() {
 
 		if ( ! class_exists( 'OT_Loader' ) ) {
-    	require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/option-tree/ot-loader.php';
+                        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/option-tree/ot-loader.php';
 
 			/* TODO - probably shouldn't be doing this here */
 			add_filter( 'ot_show_pages', '__return_false' );

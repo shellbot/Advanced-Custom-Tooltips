@@ -165,13 +165,13 @@ class Advanced_Custom_Tooltips {
 		$plugin_admin = new Advanced_Custom_Tooltips_Admin( $this->get_plugin_name(), $this->get_version(), $this->get_defaults() );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'add_tooltip_cpt' );
-    $this->loader->add_action( 'init', $plugin_admin, 'register_tooltip_settings_page' );
+                $this->loader->add_action( 'init', $plugin_admin, 'register_tooltip_settings_page' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_admin, 'include_optiontree' );
 
 		$this->loader->add_filter( 'ot_header_logo_link', $plugin_admin, 'filter_header_logo_link' );
-    $this->loader->add_filter( 'ot_header_version_text', $plugin_admin, 'filter_header_version_text' );
+                $this->loader->add_filter( 'ot_header_version_text', $plugin_admin, 'filter_header_version_text' );
 
 	}
 
@@ -243,14 +243,14 @@ class Advanced_Custom_Tooltips {
 	 */
 	public function set_defaults() {
 
-		return array(
-				'auto_linking'	=> 'first',
-				'trigger_style'	=> 'underline-dotted',
-				'trigger_color'	=> '#000000',
-				'tooltip_background_color'	=> '#4c4c4c',
-				'tooltip_text_color'	=> '#ffffff',
-				'tooltip_border_color'	=> '#000000',
-				'tooltip_corner_style'	=> 'square',
+            return array(
+                        'auto_linking'	=> 'first',
+                        'trigger_style'	=> 'underline-dotted',
+                        'trigger_color'	=> '#000000',
+                        'tooltip_background_color'	=> '#4c4c4c',
+                        'tooltip_text_color'	=> '#ffffff',
+                        'tooltip_border_color'	=> '#000000',
+                        'tooltip_corner_style'	=> 'square',
 		);
 
 	}

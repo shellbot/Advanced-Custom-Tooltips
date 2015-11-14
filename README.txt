@@ -67,6 +67,10 @@ When editing a tooltip, the URL in your browser will look something like this:
 
 The number shown where you see XX in the above example is your ID.
 
+= Can I have transparent background tooltips? =
+
+Yep! Just type in a custom background color using RGBA. See [this knowledgebase article](http://codebyshellbot.com/knowledgebase/transparency-in-tooltips/ "Transparent background tooltips") for help.
+
 == Changelog ==
 
 = 1.0.1 =
