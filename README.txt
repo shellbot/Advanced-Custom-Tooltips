@@ -73,12 +73,20 @@ Yep! Just type in a custom background color using RGBA. See [this knowledgebase 
 
 == Changelog ==
 
+= 1.0.2 =
+* Formatting improvements for tooltip content
+* New feature - Trigger text colorpicker
+
 = 1.0.1 =
 * Bugfix: Activation warning, tooltips limit & Bootstrap class conflict.
+
 = 1.0.0 =
 * First release
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+* Tooltip formatting improvements plus a new trigger text color setting.
 
 = 1.0.1 =
 * Bugfix: Activation warning, tooltips limit & Bootstrap class conflict.
