@@ -60,8 +60,6 @@ class Advanced_Custom_Tooltips_Admin {
 		$this->version = $version;
 		$this->defaults = $defaults;
 
-		add_shortcode( 'act_tooltip', array( $this, 'tooltip_shortcode' ) );
-
 	}
 
 	/**
@@ -125,53 +123,6 @@ class Advanced_Custom_Tooltips_Admin {
 
 		register_post_type( 'act_tooltip', $args );
 	}
-
-	/**
-	 * Tooltip shortcode.
-	 *
-	 * @since    1.0.0
-	 */
-	 public function tooltip_shortcode( $atts, $code_content ) {
-
-		 if( !isset( $atts['id'] ) && !isset( $atts['content'] ) ) { //No tooltip ID or content provided, do nothing
-		 	return;
-		 }
-
-		 $defaults = extract( shortcode_atts(array(
-			 'id' => '',
-			 'title' => 'Advanced Custom Tooltip',
-			 'content' => '',
-		 ), $atts, 'act-tooltip-shortcode-atts' ) );
-
-		 if( !isset( $atts['id'] ) ) { //Plain text tooltip
-			 if( $code_content ) {
-				 $tooltip_text = $code_content;
-			 } else {
-				 $tooltip_text = $title;
-			 }
-			 $tooltip_content = $content;
-			 return '<span class="act-tooltip" title="' . $tooltip_content . '">' . $tooltip_text . '</span>';
-		 }
-
-		 //ID provided, get this tooltip from db
-		 query_posts( 'post_type=act_tooltip&p=' . $id );
-
-		 if ( have_posts()) : while (have_posts()) : the_post();
-
-			 if( $code_content ) {
-
-				 $tooltip_text = $code_content;
-			 } else {
-				 $tooltip_text = get_the_title();
-			 }
-
-			 $tooltip_content = htmlentities( get_the_content() );
-
-		 endwhile; endif; wp_reset_query();
-
-		 return '<span class="act-tooltip" title="' . do_shortcode( $tooltip_content ) . '">' . $tooltip_text . '</span>';
-
-	 }
 
 	/**
 	 * Registers a new global tooltip settings page.

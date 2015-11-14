@@ -72,6 +72,8 @@ class Advanced_Custom_Tooltips_Public {
 		$this->version = $version;
 		$this->defaults = $defaults;
 		$this->global_settings = ( get_option( 'wpact_global_settings' ) ? array_merge( $defaults, get_option( 'wpact_global_settings' ) ) : $defaults );
+                
+                add_shortcode( 'act_tooltip', array( $this, 'tooltip_shortcode' ) );
 
 	}
 
@@ -83,6 +85,7 @@ class Advanced_Custom_Tooltips_Public {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( 'tooltipster-css', WPACT_INCLUDES_URL . 'tooltipster/css/tooltipster.css' );
+                wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/advanced-custom-tooltips-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -116,14 +119,14 @@ class Advanced_Custom_Tooltips_Public {
 		switch( $this->global_settings['auto_linking'] ) {
 			case 'all':
 				foreach( $tooltips as $tooltip ) {
-					$content = str_replace( $tooltip->post_title, '<span class="act-tooltip" title="' . htmlentities( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $content );
+					$content = str_replace( $tooltip->post_title, '<span class="act-tooltip" title="' . $this->format_tooltip_content( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $content );
 				}
 			break;
 			case 'first':
 				foreach( $tooltips as $tooltip ) {
 					$pos = strpos( $content, $tooltip->post_title );
 					if ($pos !== false) {
-						$content = substr_replace( $content, '<span class="act-tooltip" title="' . htmlentities( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $pos, strlen( $tooltip->post_title ) );
+						$content = substr_replace( $content, '<span class="act-tooltip" title="' . $this->format_tooltip_content( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $pos, strlen( $tooltip->post_title ) );
 					}
 				}
 			break;
@@ -132,6 +135,61 @@ class Advanced_Custom_Tooltips_Public {
 		return $content;
 
 	}
+        
+	/**
+	 * Tooltip shortcode.
+	 *
+	 * @since    1.0.0
+	 */
+	 public function tooltip_shortcode( $atts, $code_content ) {
+
+		 if( !isset( $atts['id'] ) && !isset( $atts['content'] ) ) { //No tooltip ID or content provided, do nothing
+		 	return;
+		 }
+
+		 $defaults = extract( shortcode_atts(array(
+			 'id' => '',
+			 'title' => 'Advanced Custom Tooltip',
+			 'content' => '',
+		 ), $atts, 'act-tooltip-shortcode-atts' ) );
+
+		 if( !isset( $atts['id'] ) ) { //Plain text tooltip
+			 if( $code_content ) {
+				 $tooltip_text = $code_content;
+			 } else {
+				 $tooltip_text = $title;
+			 }
+			 $tooltip_content = $content;
+			 return '<span class="act-tooltip" title="' . $this->format_tooltip_content( $tooltip_content ) . '">' . $tooltip_text . '</span>';
+		 }
+
+		 //ID provided, get this tooltip from db
+		 query_posts( 'post_type=act_tooltip&p=' . $id );
+
+		 if ( have_posts()) : while (have_posts()) : the_post();
+
+			 if( $code_content ) {
+				 $tooltip_text = $code_content;
+			 } else {
+				 $tooltip_text = get_the_title();
+			 }
+                         
+			 $tooltip_content = $this->format_tooltip_content( get_the_content() );
+
+		 endwhile; endif; wp_reset_query();
+
+		 return '<span class="act-tooltip" title="' . $tooltip_content . '">' . $tooltip_text . '</span>';
+
+	 }
+         
+        /**
+         * Format tooltip content for display
+         * 
+         * @since 1.0.2
+         */
+         function format_tooltip_content( $content ) {
+             return htmlentities( wpautop( do_shortcode( $content ) ) );
+         }
 
 	/**
 	 * Retrieve all tooltips from the database.
@@ -204,11 +262,19 @@ class Advanced_Custom_Tooltips_Public {
 				background: <?php echo $this->global_settings['tooltip_background_color']; ?> !important;
 				color: <?php echo $this->global_settings['tooltip_text_color']; ?> !important;
 			}
+                        
+                        .tooltipster-default a,
+                        .tooltipster-default .wp-caption-text {
+                                color: <?php echo $this->global_settings['tooltip_text_color']; ?> !important;
+                        }
 
 			.tooltipster-default a {
-				color: <?php echo $this->global_settings['tooltip_text_color']; ?> !important;
 				text-decoration: underline;
 			}
+                        
+                        .tooltipster-default .wp-caption-text {
+                            text-align: center;
+                            
 		</style>
 	<?php
 	}
@@ -224,7 +290,8 @@ class Advanced_Custom_Tooltips_Public {
 			jQuery(document).ready(function() {
 				jQuery('.act-tooltip').tooltipster({
 					contentAsHTML: true,
-					interactive: true
+					interactive: true,
+                                        maxWidth: 600
 				});
 			});
 		</script>

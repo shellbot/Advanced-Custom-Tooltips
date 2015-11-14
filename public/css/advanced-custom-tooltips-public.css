@@ -1,4 +1,23 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.tooltipster-default {
+    max-width: 60%;
+}
+
+.tooltipster-default h1,
+.tooltipster-default h2,
+.tooltipster-default h3,
+.tooltipster-default h4,
+.tooltipster-default h5,
+.tooltipster-default h6 {
+    margin: 1em 0;
+}
+
+
+
+.tooltipster-default ul{
+    list-style-type: disc;
+    margin: 20px;
+}
+
+.tooltipster-default ol {
+    list-style-type: decimal;
+}
