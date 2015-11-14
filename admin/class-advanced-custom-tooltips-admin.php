@@ -200,6 +200,13 @@ class Advanced_Custom_Tooltips_Admin {
                                                                         ),
                                                                 ),
                                                                 array(
+                                                                        'id'			=> 'trigger_text_color',
+                                                                        'label'			=> __( 'Color for trigger text', 'advanced-custom-tooltips' ),
+                                                                        'section'		=> 'wpact-styles',
+                                                                        'type'			=> 'colorpicker',
+                                                                        'std'			=> $this->defaults['trigger_text_color'],
+                                                                ),
+                                                                array(
                                                                         'id'			=> 'trigger_color',
                                                                         'label'			=> __( 'Color for trigger style', 'advanced-custom-tooltips' ),
                                                                         'section'		=> 'wpact-styles',

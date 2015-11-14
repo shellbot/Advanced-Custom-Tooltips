@@ -218,6 +218,7 @@ class Advanced_Custom_Tooltips_Public {
 		<style type="text/css">
 			/* Tooltip trigger styles */
 			span.tooltipstered {
+                                color: <?php echo $this->global_settings['trigger_text_color']; ?>;
 				<?php
 				switch( $this->global_settings['trigger_style'] ) {
 

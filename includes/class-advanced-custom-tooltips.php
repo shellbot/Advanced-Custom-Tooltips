@@ -246,6 +246,7 @@ class Advanced_Custom_Tooltips {
             return array(
                         'auto_linking'	=> 'first',
                         'trigger_style'	=> 'underline-dotted',
+                        'trigger_text_color' => '#000000',
                         'trigger_color'	=> '#000000',
                         'tooltip_background_color'	=> '#4c4c4c',
                         'tooltip_text_color'	=> '#ffffff',
