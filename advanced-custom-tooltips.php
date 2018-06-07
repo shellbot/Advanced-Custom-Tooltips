@@ -9,7 +9,7 @@
  * Plugin Name:       Advanced Custom Tooltips
  * Plugin URI:        http://codebyshellbot.com/wordpress-plugins/advanced-custom-tooltips
  * Description:       Advanced tooltip creator
- * Version:           1.0.2
+ * Version:           1.1.0
  * Author:            Shellbot
  * Author URI:        http://codebyshellbot.com
  * License:           GPL-2.0+

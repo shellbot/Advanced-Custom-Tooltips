@@ -119,12 +119,13 @@ class Advanced_Custom_Tooltips_Public {
 		switch( $this->global_settings['auto_linking'] ) {
 			case 'all':
 				foreach( $tooltips as $tooltip ) {
-					$content = str_replace( $tooltip->post_title, '<span class="act-tooltip" title="' . $this->format_tooltip_content( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $content );
+					$content = str_ireplace( $tooltip->post_title, '<span class="act-tooltip" title="' . $this->format_tooltip_content( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $content );
 				}
 			break;
 			case 'first':
 				foreach( $tooltips as $tooltip ) {
-					$pos = strpos( $content, $tooltip->post_title );
+
+					$pos = stripos( $content, $tooltip->post_title );
 					if ($pos !== false) {
 						$content = substr_replace( $content, '<span class="act-tooltip" title="' . $this->format_tooltip_content( $tooltip->post_content ) . '">' . $tooltip->post_title . '</span>', $pos, strlen( $tooltip->post_title ) );
 					}

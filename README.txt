@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: tooltips, tooltip, hover, hint, bubble, textbubble, shortcode,
 Requires at least: 3.0.1
-Tested up to: 4.3
+Tested up to: 4.9.6
 Donate link: http://patreon.com/shellbot
 Stable tag: trunk
 License: GPLv2 or later
@@ -73,6 +73,9 @@ Yep! Just type in a custom background color using RGBA. See [this knowledgebase 
 
 == Changelog ==
 
+= 1.1.0 =
+* Compatibility update for latest version of WP
+
 = 1.0.2 =
 * Formatting improvements for tooltip content
 * New feature - Trigger text colorpicker
@@ -84,6 +87,9 @@ Yep! Just type in a custom background color using RGBA. See [this knowledgebase 
 * First release
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+* Compatibility update for latest version of WP
 
 = 1.0.2 =
 * Tooltip formatting improvements plus a new trigger text color setting.
