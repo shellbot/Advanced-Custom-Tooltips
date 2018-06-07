@@ -59,6 +59,9 @@ class Advanced_Custom_Tooltips_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		$this->defaults = $defaults;
+		
+		add_filter( 'ot_show_pages', '__return_false' );
+		add_filter( 'ot_use_theme_options', '__return_false' );
 
 	}
 
@@ -324,24 +327,5 @@ class Advanced_Custom_Tooltips_Admin {
 		}
 
   }
-
-	/**
-	 * OptionTree options framework for generating plugin settings page & metaboxes.
-	 *
-	 * Only needs to load if no other theme/plugin already loaded it.
-	 *
-	 * @since 0.0.1
-	 */
-	function include_optiontree() {
-
-		if ( ! class_exists( 'OT_Loader' ) ) {
-                        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/option-tree/ot-loader.php';
-
-			/* TODO - probably shouldn't be doing this here */
-			add_filter( 'ot_show_pages', '__return_false' );
-			add_filter( 'ot_use_theme_options', '__return_false' );
-		}
-
-	}
 
 }

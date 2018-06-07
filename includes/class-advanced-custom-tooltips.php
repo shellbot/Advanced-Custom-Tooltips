@@ -107,6 +107,15 @@ class Advanced_Custom_Tooltips {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+		
+		/**
+		 * OptionTree framework for plugin settings page.
+		 * Only load if not already loaded from elsewhere.
+		 */
+		 
+		if ( ! class_exists( 'OT_Loader' ) ) {
+        	require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/option-tree/ot-loader.php';
+		}
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
@@ -165,13 +174,12 @@ class Advanced_Custom_Tooltips {
 		$plugin_admin = new Advanced_Custom_Tooltips_Admin( $this->get_plugin_name(), $this->get_version(), $this->get_defaults() );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'add_tooltip_cpt' );
-                $this->loader->add_action( 'init', $plugin_admin, 'register_tooltip_settings_page' );
+        $this->loader->add_action( 'init', $plugin_admin, 'register_tooltip_settings_page' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'after_setup_theme', $plugin_admin, 'include_optiontree' );
 
 		$this->loader->add_filter( 'ot_header_logo_link', $plugin_admin, 'filter_header_logo_link' );
-                $this->loader->add_filter( 'ot_header_version_text', $plugin_admin, 'filter_header_version_text' );
+        $this->loader->add_filter( 'ot_header_version_text', $plugin_admin, 'filter_header_version_text' );
 
 	}
 
